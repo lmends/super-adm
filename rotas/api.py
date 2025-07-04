@@ -2,7 +2,7 @@ import json
 import os
 from flask import Blueprint, jsonify, request
 from utils.planilha import carregar_dados
-from datetime import datetime
+from datetime import datetime, timezone, timedelta
 
 api_bp = Blueprint('api', __name__)
 HISTORICO_PATH = "historico.json"
@@ -30,6 +30,9 @@ def check():
 
     
     clinicas = carregar_dados()
+
+    # Define o fuso horário do Brasil (UTC-3)
+    fuso_horario_brasil = timezone(timedelta(hours=-3))
     
     # Procura a clínica na lista de dados já processados
     for c in clinicas:
@@ -52,7 +55,7 @@ def check():
             pode_executar = c["status"] == "ativo" and esta_valida
 
             registro = {
-                "data_hora": datetime.now().strftime('%d/%m/%Y %H:%M:%S'),
+                "data_hora": datetime.now(fuso_horario_brasil).strftime('%d/%m/%Y %H:%M:%S'),
                 "id_clinica": c['id'],
                 "nome_clinica": c.get('nome', 'Nome não encontrado'),
                 "resultado": "Permitido" if pode_executar else "Bloqueado",
