@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Login - Super Admin</title>
+    <link rel="stylesheet" href="/static/login.css">
+</head>
+<body>
+    <div class="login-container">
+        <h1>Super Admin</h1>
+        {% if error %}
+            <p class="error-message">{{ error }}</p>
+        {% endif %}
+        <form method="post">
+            <label for="username">Usuário</label>
+            <input type="text" name="username" required>
+            <label for="password">Senha</label>
+            <input type="password" name="password" required>
+            <button type="submit">Entrar</button>
+        </form>
+    </div>
+</body>
+</html>

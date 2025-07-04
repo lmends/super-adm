@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Histórico de Requisições</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <header>
+        <h1>Histórico de Requisições</h1>
+        <div class="menu-navigation">
+            <div class="menu-navigation-item">
+                <a class="apis" href="/">Menu Inicial</a>
+            </div>
+            <div class="menu-navigation-item">
+                <a class="apis" href="/documentation">API's</a>
+            </div>
+            <div class="menu-navigation-item">
+                <a class="apis" href="/historico">Histórico</a>
+            </div>
+            <div class="menu-navigation-item">
+                <a class="logout" href="/logout">Sair</a>
+            </div>
+            
+            
+        </div>
+
+    </header>
+    <main>
+        <table>
+            <thead>
+                <tr>
+                    <th>Data</th>
+                    <th>ID</th>
+                    <th>Status</th>
+                    <th>Vencimento</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for h in historico %}
+                <tr>
+                    <td>{{ h.data }}</td>
+                    <td>{{ h.id }}</td>
+                    <td>{{ h.status }}</td>
+                    <td>{{ h.vencimento }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </main>
+</body>
+</html>

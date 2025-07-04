@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>{% if usuario %}Alterar Senha{% else %}Novo Usuário{% endif %} - Super Admin</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <header>
+        <h1>{% if usuario %}Alterar Senha{% else %}Novo Usuário{% endif %}</h1>
+        <div class="menu-navigation">
+            <div class="menu-navigation-item">
+                <a class="apis" href="/">Menu Inicial</a>
+            </div>
+            <div class="menu-navigation-item">
+                <a class="apis" href="/usuarios">Usuários</a>
+            </div>
+            <div class="menu-navigation-item">
+                <a class="logout" href="/logout">Sair</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <form method="post" style="max-width: 400px; margin: 30px auto;">
+            {% if not usuario %}
+            <input name="username" placeholder="Usuário" required>
+            {% endif %}
+            <input name="senha" type="password" placeholder="{% if usuario %}Nova Senha{% else %}Senha{% endif %}" required>
+            <button type="submit" class="btn-novo" style="width: 100%; margin-top: 10px;">
+                {% if usuario %}Salvar{% else %}Cadastrar{% endif %}
+            </button>
+        </form>
+    </main>
+</body>
+</html>

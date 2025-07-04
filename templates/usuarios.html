@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Usuários - Super Admin</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <header>
+        <h1>Usuários</h1>
+        <div class="menu-navigation">
+            <div class="menu-navigation-item">
+                <a class="apis" href="/">Menu Inicial</a>
+            </div>
+            <div class="menu-navigation-item">
+                <a class="apis" href="/documentation">API's</a>
+            </div>
+            <div class="menu-navigation-item">
+                <a class="apis" href="/historico">Histórico</a>
+            </div>
+            <div class="menu-navigation-item">
+                <a class="logout" href="/logout">Sair</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <a href="/usuarios/novo" class="btn-novo">+ Novo Usuário</a>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Usuário</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for u in usuarios %}
+                <tr>
+                    <td>{{ u.username }}</td>
+                    <td>
+                        <a href="/usuarios/editar/{{ u.username }}" class="btn-acao">Alterar Senha</a> |
+                        <form method="post" action="/usuarios/excluir/{{ u.username }}" style="display:inline;" onsubmit="return confirm('Confirma exclusão do usuário {{ u.username }}?');">
+                            <button type="submit" class="btn-excluir">Excluir</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </main>
+</body>
+</html>

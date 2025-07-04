@@ -1,0 +1,120 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Painel Super Admin</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Super Admin</h1>
+        <div class="menu-navigation">
+            <div class="menu-navigation-item">
+                <a class="apis" href="/">Menu Inicial</a>
+            </div>
+            <div class="menu-navigation-item">
+                <a class="apis" href="/documentation">API's</a>
+            </div>
+            <div class="menu-navigation-item">
+                <a class="apis" href="/historico">Histórico</a>
+            </div>
+            <div class="menu-navigation-item">
+                <a class="logout" href="/logout">Sair</a>
+            </div>
+            
+            
+        </div>
+        
+        
+        
+    </header>
+
+    <main>
+        <h2>Status Geral</h2>
+        <div id="grafico" 
+            data-total="{{ total }}" 
+            data-ativos="{{ ativos }}"
+            style="text-align: center; width: 200px; height: 200px; background-color: #dfdfdf; padding: 10px; border-radius: 10px; margin-bottom: 50px;">
+
+            <canvas id="gaugeChart" style="margin-bottom: 10px;"></canvas>
+
+            <div style="display: flex; justify-content: center; gap: 20px; font-size: 14px;">
+                <div>
+                    <span style="display:inline-block;width:12px;height:12px;background:#10b981;border-radius:50%;margin-right:6px;"></span>
+                    Ativas ({{ ativos }})
+                </div>
+                <div>
+                    <span style="display:inline-block;width:12px;height:12px;background:#e5e7eb;border-radius:50%;margin-right:6px;"></span>
+                    Inativas ({{ total - ativos }})
+                </div>
+            </div>
+        </div>
+
+        <h2>Clínicas cadastradas</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Cidade</th>
+                    <th>Status</th>
+                    <th>Vencimento</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for c in clinicas %}
+                <tr>
+                    <td>{{ c.id }}</td>
+                    <td>{{ c.nome }}</td>
+                    <td>{{ c.cidade }}</td>
+                    <td>
+                        {% if c.status == "ativo" %}
+                            ✅ Ativo
+                        {% elif c.status == "vencido" %}
+                            ⚠️ Vencido
+                        {% else %}
+                            ❌ Inativo
+                        {% endif %}
+                    </td>
+                    <td>{{ c.vencimento }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </main>
+
+    <script>
+        const graficoDiv = document.getElementById('grafico');
+        const total = parseInt(graficoDiv.dataset.total);
+        const ativos = parseInt(graficoDiv.dataset.ativos);
+
+        const data = {
+            labels: ['Ativas'],
+            datasets: [{
+                label: 'Ativas',
+                data: [ativos, total - ativos],
+                backgroundColor: ['#10b981', '#e5e7eb'],
+                borderWidth: 0
+            }]
+        };
+
+        const config = {
+            type: 'doughnut',
+            data: data,
+            options: {
+                circumference: 180,
+                rotation: -90,
+                cutout: '70%',
+                plugins: {
+                    tooltip: { enabled: false },
+                    legend: { display: false }
+                }
+            }
+        };
+
+        new Chart(document.getElementById('gaugeChart'), config);
+    </script>
+</body>
+</html>

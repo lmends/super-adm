@@ -1,0 +1,10 @@
+[
+  {
+    "username": "Lucas",
+    "senha_hash": "scrypt:32768:8:1$NWR8oKbfnD6qIBMC$914520e34f9e9752cf50fde364375e21540a28a6b74fd76c5e875ba866687ad424266ba3433040c3409f30841edb1debb3c7d6e25e057a59e2e3e20f30807369"
+  },
+  {
+    "username": "Teste",
+    "senha_hash": "scrypt:32768:8:1$7qKcIPnGDhC3kbAJ$67b2c3316089a5da13b2c13a92a4431426940f9f8e00204ae294f8ac19672114c4e7a630f390f8a59ee0e7acca9c185b492b6b461166ee48f47419552b1ac1e2"
+  }
+]
