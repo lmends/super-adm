@@ -8,19 +8,30 @@ api_bp = Blueprint('api', __name__)
 HISTORICO_PATH = "historico.json"
 
 def registrar_historico(registro):
+    """
+    Registra um evento no arquivo de histórico JSON.
+    """
     historico = []
     if os.path.exists(HISTORICO_PATH):
         with open(HISTORICO_PATH, "r", encoding="utf-8") as f:
             historico = json.load(f)
 
-    historico.insert(0, registro)  # adiciona no topo
+    historico.insert(0, registro)  # Adiciona o registro mais recente no início
     with open(HISTORICO_PATH, "w", encoding="utf-8") as f:
-        json.dump(historico[:100], f, indent=2, ensure_ascii=False)  # salva últimos 100
+        # Salva os últimos 100 registros para não deixar o arquivo gigante
+        json.dump(historico[:100], f, indent=2, ensure_ascii=False)
 
 @api_bp.route('/api/check')
 def check():
     clinic_id = request.args.get('id')
+    
+    if not clinic_id:
+        return jsonify({"status": "erro", "mensagem": "ID da clínica não fornecido"}), 400
+
+    
     clinicas = carregar_dados()
+    
+    # Procura a clínica na lista de dados já processados
     for c in clinicas:
         if c['id'] == clinic_id:
             # Verifica se está vencido
@@ -37,8 +48,18 @@ def check():
             except Exception as e:
                 print(f"Erro ao analisar data: {e}")
                 esta_valida = False
-
+            
             pode_executar = c["status"] == "ativo" and esta_valida
+
+            registro = {
+                "data_hora": datetime.now().strftime('%d/%m/%Y %H:%M:%S'),
+                "id_clinica": c['id'],
+                "nome_clinica": c.get('nome', 'Nome não encontrado'),
+                "resultado": "Permitido" if pode_executar else "Bloqueado",
+                "motivo": f"Status: {c['status']}"
+            }
+            registrar_historico(registro)
+
 
             return jsonify({
                 "status": "ativo" if pode_executar else "vencido",

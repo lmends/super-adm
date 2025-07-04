@@ -32,17 +32,19 @@
                 <tr>
                     <th>Data</th>
                     <th>ID</th>
+                    <th>Nome</th>
+                    <th>Resultado</th>
                     <th>Status</th>
-                    <th>Vencimento</th>
                 </tr>
             </thead>
             <tbody>
                 {% for h in historico %}
                 <tr>
-                    <td>{{ h.data }}</td>
-                    <td>{{ h.id }}</td>
-                    <td>{{ h.status }}</td>
-                    <td>{{ h.vencimento }}</td>
+                    <td>{{ h.data_hora }}</td>
+                    <td>{{ h.id_clinica }}</td>
+                    <td>{{ h.nome_clinica }}</td>
+                    <td>{{ h.resultado }}</td>
+                    <td>{{ h.motivo }}</td>
                 </tr>
                 {% endfor %}
             </tbody>

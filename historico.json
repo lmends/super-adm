@@ -1,26 +1,16 @@
 [
   {
-    "id": "MG001",
-    "status": "ativo",
-    "vencimento": "2025-06-27T03:00:00.000Z",
-    "data": "30/06/2025 22:01:54"
+    "data_hora": "04/07/2025 18:59:10",
+    "id_clinica": "MG001",
+    "nome_clinica": "AS São João del Rei",
+    "resultado": "Permitido",
+    "motivo": "Status: ativo"
   },
   {
-    "id": "SP001",
-    "status": "ativo",
-    "vencimento": "2025-07-01T03:00:00.000Z",
-    "data": "30/06/2025 21:44:05"
-  },
-  {
-    "id": "MG001",
-    "status": "ativo",
-    "vencimento": "2025-07-01T03:00:00.000Z",
-    "data": "30/06/2025 21:43:58"
-  },
-  {
-    "id": "MG001",
-    "status": "ativo",
-    "vencimento": "2025-07-01T03:00:00.000Z",
-    "data": "30/06/2025 21:43:53"
+    "data_hora": "04/07/2025 18:58:57",
+    "id_clinica": "MG001",
+    "nome_clinica": "AS São João del Rei",
+    "resultado": "Permitido",
+    "motivo": "Status: ativo"
   }
 ]
